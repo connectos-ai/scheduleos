@@ -24,11 +24,11 @@
 - `npm run license:check`
 - `npm run docs:links`
 - `git diff --check`
-- `git grep -n -E 'DoBoth|doboth' -- ':!node_modules' ':!dist' || true`
+- Private-name scrub across tracked public content
 
 ## Resume Steps
 
-1. Open `/Users/41123ai/Documents/New project/scheduleos`.
+1. Open a local clone of `connectos-ai/scheduleos`.
 2. Verify main status with `gh run list --repo connectos-ai/scheduleos --limit 5`.
 3. Use generic public integration language only, such as "compatible leadership system" or "private downstream integration."
 4. Keep private downstream implementation details outside the public repo.
