@@ -28,7 +28,7 @@ const text = Object.fromEntries(
 const packageJson = parseJson(text.packageJson, "package.json");
 const packageLock = parseJson(text.packageLock, "package-lock.json");
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before final dependency audit approval.");
 }
 

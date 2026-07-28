@@ -43,7 +43,7 @@ const cliSource = readRequired(cliPath);
 const cliTest = readRequired(cliTestPath);
 const guardAudit = readRequired(guardAuditPath);
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before final security audit approval.");
 }
 

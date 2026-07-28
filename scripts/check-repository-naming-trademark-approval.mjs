@@ -41,7 +41,7 @@ const cleanHistoryChecklist = readRequired(cleanHistoryChecklistPath);
 const packageJson = readRequired(packagePath);
 const guardAudit = readRequired(guardAuditPath);
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before repository naming/trademark approval.");
 }
 

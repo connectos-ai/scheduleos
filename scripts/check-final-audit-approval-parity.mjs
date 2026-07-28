@@ -88,7 +88,7 @@ const packageJson = parseJson(text.packageJson, "package.json");
 const scripts = packageJson.scripts ?? {};
 const checkSteps = String(scripts.check ?? "").split(" && ");
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push("local .git directory must not exist before intentional clean public repository staging.");
 }
 

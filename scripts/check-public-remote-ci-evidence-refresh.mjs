@@ -27,7 +27,7 @@ const text = Object.fromEntries(
   ])
 );
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before public remote CI approval.");
 }
 

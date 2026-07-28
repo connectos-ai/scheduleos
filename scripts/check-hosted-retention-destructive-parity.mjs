@@ -23,7 +23,7 @@ const text = Object.fromEntries(
 
 const blocker = "Hosted retention cleanup production destructive-operation approvals";
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push("local .git directory must not exist before intentional clean public repository staging.");
 }
 

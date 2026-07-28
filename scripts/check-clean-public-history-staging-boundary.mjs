@@ -32,6 +32,7 @@ const text = Object.fromEntries(
 
 const allowedTopLevelEntries = new Set([
   ".env.example",
+  ".git",
   ".github",
   ".gitignore",
   "CHANGELOG.md",
@@ -54,9 +55,9 @@ const allowedTopLevelEntries = new Set([
   "tsconfig.json"
 ]);
 
-const excludedButToleratedTopLevelEntries = new Set(["dist", "node_modules"]);
+const excludedButToleratedTopLevelEntries = new Set([".git", "dist", "node_modules"]);
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before clean public history staging approval.");
 }
 

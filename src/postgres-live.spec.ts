@@ -151,8 +151,8 @@ async function seedMembershipScope(
     ["tenant_demo", "workspace_demo", "Demo Workspace"]
   );
   await client.query(
-    "INSERT INTO users (tenant_id, id, display_name) VALUES ($1, $2, $3)",
-    ["tenant_demo", "user_jordan", "Jordan"]
+    "INSERT INTO users (tenant_id, id, email, display_name) VALUES ($1, $2, $3, $4)",
+    ["tenant_demo", "user_jordan", "jordan.release-demo.invalid", "Jordan"]
   );
   await client.query(
     `INSERT INTO memberships (tenant_id, workspace_id, user_id, role)

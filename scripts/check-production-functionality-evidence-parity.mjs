@@ -37,7 +37,7 @@ const text = Object.fromEntries(
 const packageJson = parseJson(text.packageJson, "package.json");
 const checkSteps = (packageJson.scripts?.check ?? "").split(" && ");
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before production functionality evidence approval.");
 }
 

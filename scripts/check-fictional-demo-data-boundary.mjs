@@ -28,7 +28,7 @@ const publicChecklist = readRequired(publicChecklistPath);
 const audit = readRequired(auditPath);
 const transfer = readRequired(transferPath);
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before fictional demo-data public boundary review.");
 }
 

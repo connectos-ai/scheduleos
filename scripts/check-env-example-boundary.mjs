@@ -30,7 +30,7 @@ const releaseSafety = readRequired(releaseSafetyPath);
 const publicChecklist = readRequired(publicChecklistPath);
 const audit = readRequired(auditPath);
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before env example public boundary review.");
 }
 

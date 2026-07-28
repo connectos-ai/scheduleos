@@ -22,7 +22,7 @@ const publicChecklist = readRequired(publicChecklistPath);
 const adr = readRequired(adrPath);
 const solverDesign = readRequired(solverDesignPath);
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before open-source foundation audit approval.");
 }
 

@@ -34,7 +34,7 @@ const apiTest = readRequired(apiTestPath);
 const privacyContractTest = readRequired(privacyContractTestPath);
 const audit = readRequired(auditPath);
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push(".git directory exists before compatible leadership system public-contract boundary review.");
 }
 

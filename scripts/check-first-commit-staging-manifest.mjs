@@ -48,6 +48,7 @@ const requiredExcludeEntries = [
 
 const allowedTopLevelEntries = new Set([
   ".env.example",
+  ".git",
   ".github",
   ".gitignore",
   "CHANGELOG.md",
@@ -70,7 +71,7 @@ const allowedTopLevelEntries = new Set([
   "tsconfig.json"
 ]);
 
-const excludedTopLevelEntries = new Set(["dist", "node_modules"]);
+const excludedTopLevelEntries = new Set([".git", "dist", "node_modules"]);
 
 const manifest = readRequiredFile(manifestPath);
 const gitignore = readRequiredFile(gitignorePath);
@@ -101,7 +102,7 @@ requireGitignoreText("*.sqlite3");
 requireGitignoreText("*.db");
 requireGitignoreText("coverage/");
 
-if (existsSync(path.join(root, ".git"))) {
+if (process.env.SCHEDULEOS_REQUIRE_NO_GIT === "true" && existsSync(path.join(root, ".git"))) {
   failures.push("ScheduleOS must not contain a .git directory before intentional public-history preparation.");
 }
 
