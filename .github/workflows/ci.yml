@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scheduleos-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Build, test, audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and run release safety gates
+        run: npm run check
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Capture production dependency tree
+        run: npm ls --omit=dev --all
+
+      - name: Write release gate summary
+        if: always()
+        run: |
+          {
+            echo "## ScheduleOS CI release evidence"
+            echo
+            echo "- Workflow: \`${GITHUB_WORKFLOW}\`"
+            echo "- Run: \`${GITHUB_RUN_ID}\`"
+            echo "- Ref: \`${GITHUB_REF_NAME}\`"
+            echo "- Commit: \`${GITHUB_SHA}\`"
+            echo "- Commands: \`npm run check\`, \`npm audit --omit=dev --audit-level=high\`, \`npm ls --omit=dev --all\`"
+            echo "- Review note: public release still requires log sanitization, artifact retention review, branch protection, repository settings, clean public history, and second-operator approval."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  postgres-live:
+    name: PostgreSQL live service tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: scheduleos_test
+          POSTGRES_USER: scheduleos
+          POSTGRES_PASSWORD: scheduleos
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U scheduleos -d scheduleos_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      SCHEDULEOS_TEST_POSTGRES_URL: postgres://scheduleos:scheduleos@localhost:5432/scheduleos_test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run live PostgreSQL migration repository tests
+        run: npm run test:postgres:live
+
+      - name: Write PostgreSQL proof summary
+        if: always()
+        run: |
+          {
+            echo "## ScheduleOS PostgreSQL CI evidence"
+            echo
+            echo "- Workflow: \`${GITHUB_WORKFLOW}\`"
+            echo "- Run: \`${GITHUB_RUN_ID}\`"
+            echo "- Ref: \`${GITHUB_REF_NAME}\`"
+            echo "- Commit: \`${GITHUB_SHA}\`"
+            echo "- PostgreSQL service image: \`postgres:16-alpine\`"
+            echo "- Command: \`npm run test:postgres:live\`"
+            echo "- Review note: successful remote CI PostgreSQL proof still requires retained logs, redaction review, failure visibility, rerun/rollback procedure, and second-operator approval."
+          } >> "$GITHUB_STEP_SUMMARY"

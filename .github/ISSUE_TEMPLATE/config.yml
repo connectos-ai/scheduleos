@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability reports
+    url: https://github.com/scheduleos-ai/scheduleos/security/advisories/new
+    about: Use the configured private vulnerability reporting path after the public repository exists. Until then, do not open public security issues.
+  - name: Private data or secret exposure
+    url: https://github.com/scheduleos-ai/scheduleos/security/advisories/new
+    about: Do not post tokens, credentials, real calendar data, customer data, private workspace URLs, screenshots, exports, or logs in public issues.
