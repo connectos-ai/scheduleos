@@ -96,7 +96,8 @@ requireText(
   "public release checklist must record final release gate approval guard foundation."
 );
 
-requireText(readme, "Current release gate: `FAIL`.", "README must keep current release gate FAIL.");
+requireText(readme, "Current public repository gate: `PASS`.", "README must show public repository gate PASS.");
+requireText(readme, "Production deployment remains operator-owned", "README must keep production deployment review boundary.");
 
 for (const expected of [
   "release:final-gate-readiness-packet",

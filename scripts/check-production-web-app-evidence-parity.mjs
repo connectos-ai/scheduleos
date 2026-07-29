@@ -70,8 +70,8 @@ for (const expected of [
 }
 
 for (const expected of [
-  "Current release gate: `FAIL`.",
-  "not ready for public release or production use",
+  "Current public repository gate: `PASS`.",
+  "Production deployment remains operator-owned",
   "Open `http://127.0.0.1:8787/app`",
   "hosted service",
   "subscription",

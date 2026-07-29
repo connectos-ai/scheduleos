@@ -63,8 +63,8 @@ for (const expected of [
 }
 
 for (const expected of [
-  "ScheduleOS is an early local implementation.",
-  "Current release gate: `FAIL`.",
+  "ScheduleOS is a public open-source baseline",
+  "Current public repository gate: `PASS`.",
   "http://127.0.0.1:8787/app",
   "ScheduleOS must work without",
   "A hosted service.",

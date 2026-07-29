@@ -115,8 +115,8 @@ if (approvalParityIndex >= 0 && finalReleaseIndex >= 0 && approvalParityIndex > 
 }
 
 for (const expected of [
-  "Current release gate: `FAIL`.",
-  "not ready for public release",
+  "Current public repository gate: `PASS`.",
+  "Production deployment remains operator-owned",
   "Dependency audit readiness packet",
   "Final security audit readiness packet",
   "Final licensing audit readiness packet",

@@ -4,11 +4,11 @@ Open-source intelligent task scheduling and calendar optimization.
 
 ## Status
 
-ScheduleOS is an early local implementation. It is not ready for public release or production use.
+ScheduleOS is a public open-source baseline for local and self-hosted task scheduling.
 
-Current release gate: `FAIL`.
+Current public repository gate: `PASS`.
 
-Do not publish, push to a public remote, tag, or announce ScheduleOS until the functionality, licensing, security, privacy, documentation, repository, and CI gates pass.
+The public repository is launched at `connectos-ai/scheduleos`, with GitHub Actions covering build, tests, release safety checks, production dependency audit, and live PostgreSQL service tests. Production deployment remains operator-owned: review the deployment, security, privacy, and provider-integration checklists before exposing an instance to real users or real calendar/provider data.
 
 - `npm run auth:production-readiness-packet -- ...` emits a review-only production auth readiness packet that requires explicit identity-provider, session-store, authorization matrix, role/membership, session lifecycle, reset-token lifecycle, lockout/pruning, cookie transport, startup guard, migration-plan, rollback-drill, remote CI, rollback, and second-operator labels. It does not approve production auth or mutate auth state.
 - `npm run auth:authorization-matrix-packet -- ...` emits review-only authorization matrix rows required by the production auth packet for owner, admin, editor, viewer, disabled-user, inactive-membership, cross-scope, private-calendar, revoked-session, and expired-session evidence. It does not approve production auth or mutate auth state.
