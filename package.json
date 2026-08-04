@@ -104,9 +104,9 @@
     "production-web-app:evidence-parity:check": "node scripts/check-production-web-app-evidence-parity.mjs"
   },
   "devDependencies": {
-    "@types/node": "^20.14.10",
-    "@types/pg": "^8.20.0",
-    "typescript": "^5.5.4"
+    "@types/node": "^26.1.2",
+    "@types/pg": "^8.20.3",
+    "typescript": "^7.0.2"
   },
   "dependencies": {
     "pg": "^8.22.0"
